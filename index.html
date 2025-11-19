@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquête au Vol de la Banque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page" id="page1">
+            <h1>🏦 Vol à la Banque Centrale</h1>
+            <div class="story-box">
+                <p>Cette nuit, la Banque Centrale a été cambriolée !</p>
+                <p>Un montant de <strong>5 millions d'euros</strong> a disparu.</p>
+                <p>Vous êtes le détective chargé de l'enquête.</p>
+            </div>
+            <button class="btn" onclick="startInvestigation()">Commencer l'enquête</button>
+        </div>
+
+        <div class="page hidden" id="page2">
+            <h2>🕵️ Première étape</h2>
+            <div class="story-box">
+                <p>Vous devez commencer par vérifier les caméras de sécurité.</p>
+            </div>
+            <div class="suspects-grid">
+                <div class="suspect-card" onclick="checkCameras()">
+                    <div class="suspect-icon">📹</div>
+                    <h3>Vérifier les caméras</h3>
+                    <p>Examiner les enregistrements de sécurité</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page3">
+            <h2>📹 Salle de sécurité</h2>
+            <div class="story-box">
+                <p>Vous entrez dans la salle de sécurité. Un informaticien vous accueille...</p>
+            </div>
+            <div class="character-container">
+                <div class="character">
+                    <div class="character-icon">👨‍💻</div>
+                    <div class="dialogue-box">
+                        <p><strong>L'informaticien :</strong></p>
+                        <p>"Detective ! Les caméras ont été piratées cette nuit... Quand nous les avons remises en marche, nous avons trouvé ce papier collé sur l'écran !"</p>
+                        <p class="note-hint">💡 Il vous tend un papier plié...</p>
+                    </div>
+                </div>
+                <div class="paper-container" onclick="openPaper()">
+                    <div class="paper-hand">
+                        <div class="hand-icon">✋</div>
+                        <div class="paper-folded">📄</div>
+                    </div>
+                    <p class="click-hint">Cliquez pour ouvrir le papier</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page4">
+            <h2>📄 Le papier mystérieux</h2>
+            <div class="paper-opened">
+                <div class="paper-content">
+                    <p class="paper-text">"Trop facile que nous volions la banque maintenant on sera riche"</p>
+                </div>
+            </div>
+            <div class="story-box" style="margin-top: 30px;">
+                <p>💡 <strong>Premier indice trouvé !</strong></p>
+                <p>Les voleurs ont laissé un message... Mais qui a écrit ce papier ?</p>
+            </div>
+            <button class="btn" onclick="continueInvestigation()">Continuer l'enquête</button>
+        </div>
+
+        <div class="page hidden" id="page5">
+            <h2>🕵️ Analyse de l'indice</h2>
+            <div class="character">
+                <div class="character-icon">👨‍💻</div>
+                <div class="dialogue-box">
+                    <p><strong>Wilms (l'informaticien) :</strong></p>
+                    <p>"Ils étaient plusieurs !"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askWilms()">Comment vous le savez ?</button>
+            
+            <div id="wilms-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👨‍💻</div>
+                    <div class="dialogue-box">
+                        <p><strong>Wilms :</strong></p>
+                        <p>"C'est marqué 'nous' ! Et en plus, ils ont dû sûrement être plusieurs pour avoir des rôles différents..."</p>
+                        <p>"Le piratage, prendre l'argent, désactiver les pièges... Impossible de tout faire seul !"</p>
+                        <p>"Avant qu'ils piratent les caméras, on a vu cette image..."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="showPhoto()">Voir la photo</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page6">
+            <h2>📷 Image de surveillance</h2>
+            <div class="story-box">
+                <p>Voici la dernière image capturée par les caméras avant le piratage...</p>
+            </div>
+            <div class="security-photo">
+                <div class="photo-frame">
+                    <div class="photo-overlay">
+                        <div class="timestamp">23:47:12</div>
+                        <div class="camera-label">CAMÉRA 3 - COULOIR PRINCIPAL</div>
+                    </div>
+                    <div class="photo-content" id="securityCamera">
+                        <div class="corridor-background"></div>
+                        <div class="running-figure" id="runningPerson">🏃‍♂️</div>
+                        <div class="corridor-lines"></div>
+                        <div class="hacked-overlay" id="hackedScreen">
+                            <div class="glitch-text">SIGNAL PERDU</div>
+                            <div class="static-noise"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-secondary" onclick="replayVideo()" style="margin-top: 20px;">🔄 Revoir l'image</button>
+            <div class="story-box" style="margin-top: 30px;">
+                <p>💡 <strong>Nouvel indice !</strong></p>
+                <p>Quelqu'un courait dans le couloir juste avant le piratage...</p>
+            </div>
+            <div class="character" style="margin-top: 30px;">
+                <div class="character-icon">👨‍💻</div>
+                <div class="dialogue-box">
+                    <p><strong>Wilms :</strong></p>
+                    <p>"C'était à minuit, logique la banque est fermée..."</p>
+                    <p>"Vous voulez interroger la police qui surveillait la banque à cette heure-là ? Je sais que c'est Robert."</p>
+                </div>
+            </div>
+            <button class="btn" onclick="interrogateRobert()">Oui</button>
+        </div>
+
+        <div class="page hidden" id="page7">
+            <h2>👮 Interrogatoire de Robert</h2>
+            <div class="character">
+                <div class="character-icon">👮</div>
+                <div class="dialogue-box">
+                    <p><strong>Robert (policier) :</strong></p>
+                    <p>"Robert, que voulez-vous savoir ?"</p>
+                </div>
+            </div>
+            <div class="suspects-grid">
+                <div class="suspect-card" onclick="askRobertWork()">
+                    <div class="suspect-icon">⏰</div>
+                    <h3>Vous travailliez à cette heure-là ?</h3>
+                </div>
+                <div class="suspect-card" onclick="askRobertWhat()">
+                    <div class="suspect-icon">❓</div>
+                    <h3>Que s'est-il passé ?</h3>
+                </div>
+            </div>
+            
+            <div id="robert-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👮</div>
+                    <div class="dialogue-box">
+                        <p><strong>Robert :</strong></p>
+                        <p id="robert-response"></p>
+                    </div>
+                </div>
+                <button class="btn" onclick="goToTom()">Voir Tom</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page8">
+            <h2>👮 Témoignage de Tom</h2>
+            <div class="character">
+                <div class="character-icon">👮</div>
+                <div class="dialogue-box">
+                    <p><strong>Tom (policier) :</strong></p>
+                    <p>"Monsieur, j'ai eu ultra peur ! Voilà ce qui s'est passé..."</p>
+                    <p>"J'étais en train de surveiller quand j'entends un bruit sur le toit. Je monte et là, il n'y avait rien..."</p>
+                    <p>"Puis j'ai entendu du bruit à la porte. Ils étaient rentrés !"</p>
+                    <p>"Je rentre et là, ils m'ont fait une embuscade ! Ils étaient masqués d'un masque noir..."</p>
+                    <p>"J'ai réussi à m'échapper et je suis vite parti !"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askWhyNoPolice()">Pourquoi pas appeler la police ?</button>
+            
+            <div id="tom-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👮</div>
+                    <div class="dialogue-box">
+                        <p><strong>Tom :</strong></p>
+                        <p>"J'ai été terrifié, je ne savais plus quoi faire ! En plus, la police travaillait partout..."</p>
+                        <p>"Mais j'ai réussi à choper un message d'un talkie-walkie !"</p>
+                    </div>
+                </div>
+                <div class="walkie-talkie" onclick="playWalkieTalkie()">
+                    <div class="walkie-icon">📻</div>
+                    <p class="click-hint">Cliquez sur le talkie-walkie</p>
+                </div>
+                <div id="walkie-message" class="hidden" style="margin-top: 20px;">
+                    <div class="story-box">
+                        <p class="walkie-text">🔊 "Allez Patrick, dépêche-toi ! On lance la phase 2 !"</p>
+                    </div>
+                    <button class="btn" onclick="afterWalkie()">Voir Patrick</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page9">
+            <h2>🍽️ Interrogatoire de Patrick</h2>
+            <div class="character">
+                <div class="character-icon">👨‍🍳</div>
+                <div class="dialogue-box">
+                    <p><strong>Patrick (restaurateur) :</strong></p>
+                    <p>"Bonjour monsieur, vous voulez un verre de quoi ?"</p>
+                </div>
+            </div>
+            <div class="character" style="margin-top: 20px;">
+                <div class="character-icon">🕵️</div>
+                <div class="dialogue-box">
+                    <p><strong>Vous :</strong></p>
+                    <p>"Monsieur, je ne suis pas venu pour un verre, je veux enquêter sur le vol."</p>
+                </div>
+            </div>
+            <div class="character" style="margin-top: 20px;">
+                <div class="character-icon">👨‍🍳</div>
+                <div class="dialogue-box">
+                    <p><strong>Patrick :</strong></p>
+                    <p>"Quel vol ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="showBankRobbery()">Le vol de la banque</button>
+            
+            <div id="patrick-conversation" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👨‍🍳</div>
+                    <div class="dialogue-box">
+                        <p><strong>Patrick :</strong></p>
+                        <p>"Ah oui, c'est tellement dommage..."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="mentionWalkieTalkie()">Sur ce talkie-walkie, ils disent votre nom</button>
+                
+                <div id="patrick-defense" class="hidden" style="margin-top: 30px;">
+                    <div class="character">
+                        <div class="character-icon">👨‍🍳</div>
+                        <div class="dialogue-box">
+                            <p><strong>Patrick :</strong></p>
+                            <p>"Ça doit sûrement être une diversion ! Ils ont dû dire ça pour le donner à la police, pour croire que c'est moi alors que c'est une diversion..."</p>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="afterPatrick()">Continuer l'enquête</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page10">
+            <h2>🤔 Réflexion</h2>
+            <div class="story-box">
+                <p><strong>Vous réfléchissez...</strong></p>
+            </div>
+            <div class="character">
+                <div class="character-icon">🕵️</div>
+                <div class="dialogue-box">
+                    <p><strong>Vous (pensant) :</strong></p>
+                    <p>"Bizarre, on a peu d'indices déjà..."</p>
+                    <p>"Robert dit qu'il avait pris congé, mais pourquoi ?"</p>
+                    <p>"Comment Tom est monté sur un toit ?"</p>
+                    <p>"Et surtout, comment Patrick savait que c'était Tom et pas Robert ?"</p>
+                    <p>"Et en plus, il savait pour l'embuscade et le talkie-walkie donné... Si c'était lui qui l'avait donné ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="afterReflection()">Continuer</button>
+        </div>
+
+        <div class="page hidden" id="page11">
+            <h2>🕵️ À qui voulez-vous parler ?</h2>
+            <div class="story-box">
+                <p>Vous devez choisir une personne à interroger à nouveau...</p>
+            </div>
+            <div class="suspects-grid">
+                <div class="suspect-card" onclick="talkToRobert()">
+                    <div class="suspect-icon">👮</div>
+                    <h3>Robert</h3>
+                    <p>Le policier en congé</p>
+                </div>
+                <div class="suspect-card" onclick="talkToTom()">
+                    <div class="suspect-icon">👮</div>
+                    <h3>Tom</h3>
+                    <p>Le policier qui surveillait</p>
+                </div>
+                <div class="suspect-card" onclick="talkToPatrick()">
+                    <div class="suspect-icon">👨‍🍳</div>
+                    <h3>Patrick</h3>
+                    <p>Le restaurateur</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page12-patrick">
+            <h2>👨‍🍳 Patrick</h2>
+            <div class="character">
+                <div class="character-icon">👨‍🍳</div>
+                <div class="dialogue-box">
+                    <p><strong>Patrick :</strong></p>
+                    <p>"Vous êtes de retour ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askPatrickWalkie()">Comment vous savez pour le talkie-walkie ?</button>
+            
+            <div id="patrick-response" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👨‍🍳</div>
+                    <div class="dialogue-box">
+                        <p><strong>Patrick :</strong></p>
+                        <p>"Désolé, je ferme ! J'ai trop entendu de bruit. Au revoir !"</p>
+                    </div>
+                </div>
+                <div class="story-box" style="margin-top: 20px;">
+                    <p><em>"Bizarre..."</em></p>
+                </div>
+                <button class="btn" onclick="returnToChoice()">Revenir</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page12-robert">
+            <h2>👮 Robert</h2>
+            <div class="character">
+                <div class="character-icon">👮</div>
+                <div class="dialogue-box">
+                    <p><strong>Robert :</strong></p>
+                    <p>"Vous avez d'autres questions ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askRobertLeave()">Pourquoi prendre congé ?</button>
+            
+            <div id="robert-response" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👮</div>
+                    <div class="dialogue-box">
+                        <p><strong>Robert :</strong></p>
+                        <p>"J'avais un rendez-vous avec ma femme."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="returnToChoice()">Revenir</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page12-tom">
+            <h2>👮 Tom</h2>
+            <div class="character">
+                <div class="character-icon">👮</div>
+                <div class="dialogue-box">
+                    <p><strong>Tom :</strong></p>
+                    <p>"Qu'est-ce que vous voulez savoir de plus ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askTomRoof()">Comment monter sur un toit ?</button>
+            
+            <div id="tom-response" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👮</div>
+                    <div class="dialogue-box">
+                        <p><strong>Tom :</strong></p>
+                        <p>"Il y avait une échelle car il y a des travaux."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="returnToChoice()">Revenir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
