@@ -146,24 +146,39 @@ function afterPatrick() {
 function afterReflection() {
     document.getElementById('page10').classList.add('hidden');
     document.getElementById('page11').classList.remove('hidden');
+    // Afficher le carnet de notes et la main
+    document.getElementById('notebookBtn').classList.remove('hidden');
+    document.getElementById('pointingHand').classList.remove('hidden');
 }
 
 // Parler à Robert
 function talkToRobert() {
     document.getElementById('page11').classList.add('hidden');
     document.getElementById('page12-robert').classList.remove('hidden');
+    // Réinitialiser l'affichage
+    document.getElementById('robert-buttons').style.display = 'block';
+    document.getElementById('robert-leave-response').style.display = 'none';
+    // Cacher le carnet
+    document.getElementById('notebookBtn').classList.add('hidden');
+    document.getElementById('pointingHand').classList.add('hidden');
 }
 
 // Parler à Tom
 function talkToTom() {
     document.getElementById('page11').classList.add('hidden');
     document.getElementById('page12-tom').classList.remove('hidden');
+    // Cacher le carnet
+    document.getElementById('notebookBtn').classList.add('hidden');
+    document.getElementById('pointingHand').classList.add('hidden');
 }
 
 // Parler à Patrick
 function talkToPatrick() {
     document.getElementById('page11').classList.add('hidden');
     document.getElementById('page12-patrick').classList.remove('hidden');
+    // Cacher le carnet
+    document.getElementById('notebookBtn').classList.add('hidden');
+    document.getElementById('pointingHand').classList.add('hidden');
 }
 
 // Demander à Patrick pour le talkie-walkie
@@ -174,8 +189,8 @@ function askPatrickWalkie() {
 
 // Demander à Robert pourquoi il a pris congé
 function askRobertLeave() {
-    document.getElementById('robert-response').classList.remove('hidden');
-    event.target.style.display = 'none';
+    document.getElementById('robert-leave-response').style.display = 'block';
+    document.getElementById('robert-buttons').style.display = 'none';
 }
 
 // Demander à Tom comment monter sur le toit
@@ -191,8 +206,17 @@ function returnToChoice() {
     document.getElementById('page12-robert').classList.add('hidden');
     document.getElementById('page12-tom').classList.add('hidden');
     
+    // Réinitialiser les états
+    if (document.getElementById('robert-buttons')) {
+        document.getElementById('robert-buttons').style.display = 'block';
+        document.getElementById('robert-leave-response').style.display = 'none';
+    }
+    
     // Afficher la page de choix
     document.getElementById('page11').classList.remove('hidden');
+    // Réafficher le carnet
+    document.getElementById('notebookBtn').classList.remove('hidden');
+    document.getElementById('pointingHand').classList.remove('hidden');
 }
 
 // Chercher avec la police
@@ -205,4 +229,124 @@ function askPolice() {
 function interrogateVillage() {
     alert('Vous allez interroger les habitants du village...');
     // À développer
+}
+
+// Toggle carnet de notes
+function toggleNotebook() {
+    const notebook = document.getElementById('notebookPanel');
+    const isClosing = !notebook.classList.contains('hidden');
+    
+    notebook.classList.toggle('hidden');
+    // Masquer la main après le premier clic
+    document.getElementById('pointingHand').classList.add('hidden');
+    
+    // Si on ferme le carnet, afficher le bouton des travailleurs
+    if (isClosing) {
+        document.getElementById('workersBtn').classList.remove('hidden');
+    }
+}
+
+// Raccourci pour aller directement à la page de choix (temporaire pour le dev)
+function jumpToCameras() {
+    // Cacher toutes les pages
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(page => page.classList.add('hidden'));
+    
+    // Afficher la page de choix des personnes à interroger
+    document.getElementById('page11').classList.remove('hidden');
+    // Afficher le carnet et la main
+    document.getElementById('notebookBtn').classList.remove('hidden');
+    document.getElementById('pointingHand').classList.remove('hidden');
+}
+
+// Aller voir les travailleurs de la banque
+function goToWorkers() {
+    document.getElementById('page11').classList.add('hidden');
+    document.getElementById('page-workers').classList.remove('hidden');
+    // Cacher le carnet
+    document.getElementById('notebookBtn').classList.add('hidden');
+    document.getElementById('pointingHand').classList.add('hidden');
+}
+
+// Revenir au choix depuis la page des travailleurs
+function returnToChoiceFromWorkers() {
+    document.getElementById('page-workers').classList.add('hidden');
+    document.getElementById('page11').classList.remove('hidden');
+    // Réafficher le carnet
+    document.getElementById('notebookBtn').classList.remove('hidden');
+    // Le bouton reste visible
+}
+
+// Interroger Jean
+function interrogateJean() {
+    document.getElementById('page-workers').classList.add('hidden');
+    document.getElementById('page-jean').classList.remove('hidden');
+}
+
+function askJeanMidnight() {
+    document.getElementById('jean-answer').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Interroger Marc
+function interrogateMarc() {
+    document.getElementById('page-workers').classList.add('hidden');
+    document.getElementById('page-marc').classList.remove('hidden');
+}
+
+function askMarcMidnight() {
+    document.getElementById('marc-answer').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Interroger Sophie
+function interrogateSophie() {
+    document.getElementById('page-workers').classList.add('hidden');
+    document.getElementById('page-sophie').classList.remove('hidden');
+}
+
+function askSophieMidnight() {
+    document.getElementById('sophie-answer').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Interroger Lucas
+function interrogateLucas() {
+    document.getElementById('page-workers').classList.add('hidden');
+    document.getElementById('page-lucas').classList.remove('hidden');
+}
+
+function askLucasMidnight() {
+    document.getElementById('lucas-answer').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Revenir à la liste des travailleurs
+function returnToWorkers() {
+    // Cacher toutes les pages d'interrogatoire des travailleurs
+    document.getElementById('page-jean').classList.add('hidden');
+    document.getElementById('page-marc').classList.add('hidden');
+    document.getElementById('page-sophie').classList.add('hidden');
+    document.getElementById('page-lucas').classList.add('hidden');
+    
+    // Afficher la page des travailleurs
+    document.getElementById('page-workers').classList.remove('hidden');
+}
+
+// Inspecter les lieux
+function inspectPlace() {
+    document.getElementById('page-workers').classList.add('hidden');
+    document.getElementById('page-inspection').classList.remove('hidden');
+}
+
+// Jouer le message du talkie-walkie d'inspection
+function playInspectionWalkie() {
+    document.getElementById('inspection-walkie-message').classList.remove('hidden');
+    event.target.style.opacity = '0.5';
+    event.target.style.cursor = 'default';
+}
+
+// Après l'inspection
+function afterInspection() {
+    alert('Suite à développer...');
 }

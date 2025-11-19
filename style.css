@@ -10,7 +10,7 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
 }
 
@@ -570,5 +570,216 @@ h2 {
     }
     100% {
         transform: translateY(10px);
+    }
+}
+
+/* Carnet de notes flottant */
+.notebook-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    animation: pulse 2s infinite;
+}
+
+.notebook-btn.hidden {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.notebook-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(240, 147, 251, 0.6);
+}
+
+/* Main qui pointe vers le carnet */
+.pointing-hand {
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    font-size: 3em;
+    z-index: 999;
+    animation: pointToNotebook 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.3));
+    transform-origin: bottom right;
+}
+
+.pointing-hand.hidden {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes pointToNotebook {
+    0%, 100% {
+        transform: translateY(0) rotate(-45deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 5px 30px rgba(240, 147, 251, 0.8);
+    }
+}
+
+.notebook-panel {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    width: 350px;
+    max-height: 80vh;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+.notebook-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notebook-header h3 {
+    margin: 0;
+    font-size: 1.3em;
+    color: white;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.notebook-content {
+    padding: 20px;
+    max-height: calc(80vh - 80px);
+    overflow-y: auto;
+}
+
+.note-item {
+    background: #f8f9fa;
+    border-left: 4px solid #ffc107;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note-item:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.note-icon {
+    font-size: 1.8em;
+    flex-shrink: 0;
+}
+
+.note-item p {
+    margin: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.note-item strong {
+    color: #1e3c72;
+}
+
+/* Bouton de raccourci temporaire (dev) */
+.dev-shortcut {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff0000 100%);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+    z-index: 999;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 0.9em;
+}
+
+.dev-shortcut:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 0, 0, 0.6);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 600px) {
+    .notebook-panel {
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+    
+    .notebook-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+    
+    .dev-shortcut {
+        top: 10px;
+        right: 10px;
+        padding: 10px 20px;
+        font-size: 0.8em;
     }
 }

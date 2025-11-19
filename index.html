@@ -291,6 +291,7 @@
                     <p>Le restaurateur</p>
                 </div>
             </div>
+            <button class="btn hidden" id="workersBtn" onclick="goToWorkers()" style="margin-top: 30px;">🏗️ Voir les travailleurs de la banque</button>
         </div>
 
         <div class="page hidden" id="page12-patrick">
@@ -302,6 +303,7 @@
                     <p>"Vous êtes de retour ?"</p>
                 </div>
             </div>
+            <button class="btn" onclick="returnToChoice()">Revenir</button>
             <button class="btn" onclick="askPatrickWalkie()">Comment vous savez pour le talkie-walkie ?</button>
             
             <div id="patrick-response" class="hidden" style="margin-top: 30px;">
@@ -328,9 +330,12 @@
                     <p>"Vous avez d'autres questions ?"</p>
                 </div>
             </div>
-            <button class="btn" onclick="askRobertLeave()">Pourquoi prendre congé ?</button>
+            <div id="robert-buttons">
+                <button class="btn" onclick="returnToChoice()">Revenir</button>
+                <button class="btn" onclick="askRobertLeave()">Pourquoi prendre congé ?</button>
+            </div>
             
-            <div id="robert-response" class="hidden" style="margin-top: 30px;">
+            <div id="robert-leave-response" style="display: none; margin-top: 30px;">
                 <div class="character">
                     <div class="character-icon">👮</div>
                     <div class="dialogue-box">
@@ -351,6 +356,7 @@
                     <p>"Qu'est-ce que vous voulez savoir de plus ?"</p>
                 </div>
             </div>
+            <button class="btn" onclick="returnToChoice()">Revenir</button>
             <button class="btn" onclick="askTomRoof()">Comment monter sur un toit ?</button>
             
             <div id="tom-response" class="hidden" style="margin-top: 30px;">
@@ -364,6 +370,209 @@
                 <button class="btn" onclick="returnToChoice()">Revenir</button>
             </div>
         </div>
+
+        <div class="page hidden" id="page-workers">
+            <h2>🏗️ Travailleurs de la banque</h2>
+            <div class="story-box">
+                <p><strong>Vous consultez la liste des travailleurs qui étaient présents lors des travaux...</strong></p>
+            </div>
+            <div class="character">
+                <div class="character-icon">🕵️</div>
+                <div class="dialogue-box">
+                    <p><strong>Vous (pensant) :</strong></p>
+                    <p>"Tom a mentionné qu'il y avait des travaux en cours... C'est peut-être important !"</p>
+                    <p>"Qui travaillait sur le chantier cette nuit-là ?"</p>
+                </div>
+            </div>
+            <div class="suspects-grid" style="margin-top: 30px;">
+                <div class="suspect-card" onclick="interrogateJean()">
+                    <div class="suspect-icon">⚡</div>
+                    <h3>Jean</h3>
+                    <p>Électricien</p>
+                </div>
+                <div class="suspect-card" onclick="interrogateMarc()">
+                    <div class="suspect-icon">🔧</div>
+                    <h3>Marc</h3>
+                    <p>Plombier</p>
+                </div>
+                <div class="suspect-card" onclick="interrogateSophie()">
+                    <div class="suspect-icon">📐</div>
+                    <h3>Sophie</h3>
+                    <p>Architecte</p>
+                </div>
+                <div class="suspect-card" onclick="interrogateLucas()">
+                    <div class="suspect-icon">🧱</div>
+                    <h3>Lucas</h3>
+                    <p>Maçon</p>
+                </div>
+            </div>
+            <button class="btn" onclick="inspectPlace()">Inspecter les lieux</button>
+        </div>
+
+        <div class="page hidden" id="page-jean">
+            <h2>⚡ Jean - Électricien</h2>
+            <div class="character">
+                <div class="character-icon">⚡</div>
+                <div class="dialogue-box">
+                    <p><strong>Jean :</strong></p>
+                    <p>"Bonjour, que puis-je faire pour vous ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askJeanMidnight()">Que faisiez-vous à minuit à la banque ?</button>
+            
+            <div id="jean-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">⚡</div>
+                    <div class="dialogue-box">
+                        <p><strong>Jean :</strong></p>
+                        <p>"Je ne travaillais pas cette nuit-là."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="returnToWorkers()">Retour</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-marc">
+            <h2>🔧 Marc - Plombier</h2>
+            <div class="character">
+                <div class="character-icon">🔧</div>
+                <div class="dialogue-box">
+                    <p><strong>Marc :</strong></p>
+                    <p>"Oui, détective ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askMarcMidnight()">Que faisiez-vous à minuit à la banque ?</button>
+            
+            <div id="marc-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">🔧</div>
+                    <div class="dialogue-box">
+                        <p><strong>Marc :</strong></p>
+                        <p>"Je ne travaillais pas cette nuit-là."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="returnToWorkers()">Retour</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-sophie">
+            <h2>📐 Sophie - Architecte</h2>
+            <div class="character">
+                <div class="character-icon">📐</div>
+                <div class="dialogue-box">
+                    <p><strong>Sophie :</strong></p>
+                    <p>"Bonjour, comment puis-je vous aider ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askSophieMidnight()">Que faisiez-vous à minuit à la banque ?</button>
+            
+            <div id="sophie-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">📐</div>
+                    <div class="dialogue-box">
+                        <p><strong>Sophie :</strong></p>
+                        <p>"Je ne travaillais pas cette nuit-là."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="returnToWorkers()">Retour</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-lucas">
+            <h2>🧱 Lucas - Maçon</h2>
+            <div class="character">
+                <div class="character-icon">🧱</div>
+                <div class="dialogue-box">
+                    <p><strong>Lucas :</strong></p>
+                    <p>"Salut, qu'est-ce que tu veux savoir ?"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askLucasMidnight()">Que faisiez-vous à minuit à la banque ?</button>
+            
+            <div id="lucas-answer" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">🧱</div>
+                    <div class="dialogue-box">
+                        <p><strong>Lucas :</strong></p>
+                        <p>"Moi je travaillais ! J'ai entendu du bruit..."</p>
+                        <p>"Mais je crois que c'était une pierre tombée."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="returnToWorkers()">Retour</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-inspection">
+            <h2>🔍 Inspection des lieux</h2>
+            <div class="story-box">
+                <p><strong>Vous inspectez le chantier de construction...</strong></p>
+            </div>
+            <div class="character">
+                <div class="character-icon">🕵️</div>
+                <div class="dialogue-box">
+                    <p><strong>Vous (pensant) :</strong></p>
+                    <p>"Il faut que je fouille les lieux pour trouver des indices..."</p>
+                    <p>"Qu'est-ce que c'est ? Un talkie-walkie !"</p>
+                </div>
+            </div>
+            <div class="walkie-talkie" onclick="playInspectionWalkie()" style="margin-top: 30px;">
+                <div class="walkie-icon">📻</div>
+                <p class="click-hint">Cliquez sur le talkie-walkie</p>
+            </div>
+            <div id="inspection-walkie-message" class="hidden" style="margin-top: 20px;">
+                <div class="story-box">
+                    <p class="walkie-text">🔊 "Super les gars ! Capturez-le, allez !"</p>
+                </div>
+                <div class="character" style="margin-top: 30px;">
+                    <div class="character-icon">🕵️</div>
+                    <div class="dialogue-box">
+                        <p><strong>Vous (pensant) :</strong></p>
+                        <p>"Qui a capturé qui ?"</p>
+                        <p>"Et en plus, il faut trouver quelqu'un qui est un hacker pour hacker les caméras..."</p>
+                        <p>"Et il y en a pas beaucoup ici !"</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="afterInspection()">Continuer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carnet de notes flottant -->
+    <div class="notebook-btn hidden" id="notebookBtn" onclick="toggleNotebook()">
+        📓
+    </div>
+    <div class="pointing-hand hidden" id="pointingHand">
+        👉
+    </div>
+
+    <div class="notebook-panel hidden" id="notebookPanel">
+        <div class="notebook-header">
+            <h3>📓 Carnet de notes</h3>
+            <button class="close-btn" onclick="toggleNotebook()">×</button>
+        </div>
+        <div class="notebook-content">
+            <div class="note-item">
+                <div class="note-icon">⚠️</div>
+                <p><strong>Patrick est suspé</strong> - Il m'a pas répondu.</p>
+            </div>
+            <div class="note-item">
+                <div class="note-icon">🏗️</div>
+                <p><strong>Tom dit qu'il y avait des travaux.</strong> Un cambriolage en plein travaux... Bizarre !</p>
+            </div>
+            <div class="note-item">
+                <div class="note-icon">🔍</div>
+                <p>Peut-être voir <strong>qui travaille dans les travaux</strong>.</p>
+            </div>
+            <div class="note-item">
+                <div class="note-icon">👥</div>
+                <p>Il y a dû avoir des <strong>complices</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton de raccourci temporaire (dev) -->
+    <div class="dev-shortcut" onclick="jumpToCameras()">
+        ⚡ RACCOURCI CAMÉRAS
     </div>
 
     <script src="script.js"></script>
