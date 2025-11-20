@@ -532,7 +532,103 @@
                         <p>"Et il y en a pas beaucoup ici !"</p>
                     </div>
                 </div>
-                <button class="btn" onclick="afterInspection()">Continuer</button>
+                <button class="btn" onclick="afterInspection()">Voir le roi</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-king">
+            <h2>👑 Le Roi</h2>
+            <div class="character">
+                <div class="character-icon">👑</div>
+                <div class="dialogue-box">
+                    <p><strong>Le Roi :</strong></p>
+                    <p>"Bonjour monsieur."</p>
+                </div>
+            </div>
+            <button class="btn" onclick="greetKing()">Bonjour roi</button>
+            
+            <div id="king-conversation1" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Vous avez trouvé des choses ?"</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="giveNotebook()">Oui j'ai des infos, prenez mon carnet</button>
+            </div>
+            
+            <div id="king-conversation2" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Ah oui, Patrick est bizarre..."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="confirmPatrick()">Je le confirme</button>
+            </div>
+            
+            <div id="king-conversation3" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Tiens, j'ai un message."</p>
+                    </div>
+                </div>
+                <div class="paper-container" onclick="openKingPaper()" style="margin-top: 20px;">
+                    <div class="paper-hand">
+                        <div class="hand-icon">✋</div>
+                        <div class="paper-folded">📄</div>
+                    </div>
+                    <p class="click-hint">Cliquez pour ouvrir le papier</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-king-paper">
+            <h2>📄 Message de Wilms</h2>
+            <div class="paper-opened">
+                <div class="paper-content">
+                    <p class="paper-text">"Retrouve-moi à 20h ce soir."</p>
+                    <p class="paper-text" style="margin-top: 15px; font-style: normal;">- Wilms (l'informaticien)</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askTime()">Quelle heure est-il ?</button>
+            
+            <div id="king-time-response" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Il est actuellement 15h."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="goToNap()">Je vais faire une sieste comme Otmane</button>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-nap">
+            <h2>🛏️ Sieste</h2>
+            <div class="nap-scene">
+                <div class="sleeping-character">😴</div>
+                <div class="bed-icon">🛏️</div>
+            </div>
+            <div class="clock-container">
+                <div class="clock-display" id="clockDisplay">5</div>
+                <div class="clock-icon">⏰</div>
+            </div>
+            <div id="noise-message" class="hidden" style="margin-top: 30px;">
+                <div class="story-box">
+                    <p><strong>Vous :</strong> "Encore 2 secondes..."</p>
+                </div>
+            </div>
+            <div id="wake-message" class="hidden" style="margin-top: 30px;">
+                <div class="story-box">
+                    <p><strong>Vous :</strong> "C'est parti !"</p>
+                </div>
+                <button class="btn" onclick="afterNap()">Continuer</button>
             </div>
         </div>
     </div>

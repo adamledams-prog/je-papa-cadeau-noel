@@ -348,5 +348,101 @@ function playInspectionWalkie() {
 
 // Après l'inspection
 function afterInspection() {
+    document.getElementById('page-inspection').classList.add('hidden');
+    document.getElementById('page-king').classList.remove('hidden');
+}
+
+// Saluer le roi
+function greetKing() {
+    document.getElementById('king-conversation1').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Donner le carnet au roi
+function giveNotebook() {
+    document.getElementById('king-conversation2').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Confirmer pour Patrick
+function confirmPatrick() {
+    document.getElementById('king-conversation3').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Ouvrir le papier du roi
+function openKingPaper() {
+    document.getElementById('page-king').classList.add('hidden');
+    document.getElementById('page-king-paper').classList.remove('hidden');
+}
+
+// Après avoir lu le papier du roi
+function afterKingPaper() {
+    alert('Suite à développer...');
+}
+
+// Demander l'heure au roi
+function askTime() {
+    document.getElementById('king-time-response').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Après avoir demandé l'heure
+function afterKingTime() {
+    alert('Suite à développer...');
+}
+
+// Aller faire une sieste
+function goToNap() {
+    document.getElementById('page-king-paper').classList.add('hidden');
+    document.getElementById('page-nap').classList.remove('hidden');
+    startClockCountdown();
+}
+
+// Démarrer le compte à rebours de l'horloge
+function startClockCountdown() {
+    let count = 5;
+    const clockDisplay = document.getElementById('clockDisplay');
+    let hasRestarted = false;
+    
+    const countdown = setInterval(() => {
+        count--;
+        clockDisplay.textContent = count;
+        
+        // Quand arrive à 1 pour la première fois, montrer le message du bruit
+        if (count === 1 && !hasRestarted) {
+            clearInterval(countdown);
+            // Afficher le message "Encore 2 secondes..."
+            setTimeout(() => {
+                document.getElementById('noise-message').classList.remove('hidden');
+            }, 100);
+            
+            hasRestarted = true;
+            // Redémarrer le compte à rebours de 2 après 2 secondes
+            setTimeout(() => {
+                count = 2;
+                clockDisplay.textContent = count;
+                // Reprendre le compte à rebours
+                const countdown2 = setInterval(() => {
+                    count--;
+                    clockDisplay.textContent = count;
+                    
+                    // Quand arrive à 1, sonner
+                    if (count === 1) {
+                        document.getElementById('noise-message').classList.add('hidden');
+                    }
+                    else if (count === 0) {
+                        clearInterval(countdown2);
+                        clockDisplay.textContent = '🔔';
+                        document.getElementById('wake-message').classList.remove('hidden');
+                    }
+                }, 1000);
+            }, 2000);
+        }
+    }, 1000); // Chaque seconde
+}
+
+// Après la sieste
+function afterNap() {
     alert('Suite à développer...');
 }

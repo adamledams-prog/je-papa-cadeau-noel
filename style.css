@@ -783,3 +783,61 @@ h2 {
         font-size: 0.8em;
     }
 }
+
+/* Scène de sieste */
+.nap-scene {
+    text-align: center;
+    margin: 40px 0;
+    padding: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    position: relative;
+}
+
+.sleeping-character {
+    font-size: 8em;
+    animation: breathing 3s ease-in-out infinite;
+}
+
+@keyframes breathing {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.bed-icon {
+    font-size: 6em;
+    margin-top: -20px;
+}
+
+.clock-container {
+    text-align: center;
+    margin: 40px 0;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 15px;
+}
+
+.clock-display {
+    font-size: 8em;
+    font-weight: bold;
+    color: #1e3c72;
+    margin-bottom: 20px;
+    animation: clockPulse 1s ease-in-out infinite;
+}
+
+@keyframes clockPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.clock-icon {
+    font-size: 4em;
+}
