@@ -149,6 +149,37 @@ function afterReflection() {
     // Afficher le carnet de notes et la main
     document.getElementById('notebookBtn').classList.remove('hidden');
     document.getElementById('pointingHand').classList.remove('hidden');
+    
+    // Cacher le bouton + et les boutons de suppression dans cette page
+    hideNotebookControls();
+}
+
+// Cacher les contrôles du carnet (bouton + et poubelles)
+function hideNotebookControls() {
+    const addBtn = document.querySelector('.add-note-btn');
+    const deleteButtons = document.querySelectorAll('.delete-note-btn');
+    
+    if (addBtn) {
+        addBtn.style.display = 'none';
+    }
+    
+    deleteButtons.forEach(btn => {
+        btn.style.display = 'none';
+    });
+}
+
+// Réafficher les contrôles du carnet
+function showNotebookControls() {
+    const addBtn = document.querySelector('.add-note-btn');
+    const deleteButtons = document.querySelectorAll('.delete-note-btn');
+    
+    if (addBtn) {
+        addBtn.style.display = 'flex';
+    }
+    
+    deleteButtons.forEach(btn => {
+        btn.style.display = 'block';
+    });
 }
 
 // Parler à Robert
@@ -161,6 +192,8 @@ function talkToRobert() {
     // Cacher le carnet
     document.getElementById('notebookBtn').classList.add('hidden');
     document.getElementById('pointingHand').classList.add('hidden');
+    // Réafficher les contrôles du carnet
+    showNotebookControls();
 }
 
 // Parler à Tom
@@ -170,6 +203,8 @@ function talkToTom() {
     // Cacher le carnet
     document.getElementById('notebookBtn').classList.add('hidden');
     document.getElementById('pointingHand').classList.add('hidden');
+    // Réafficher les contrôles du carnet
+    showNotebookControls();
 }
 
 // Parler à Patrick
@@ -179,6 +214,8 @@ function talkToPatrick() {
     // Cacher le carnet
     document.getElementById('notebookBtn').classList.add('hidden');
     document.getElementById('pointingHand').classList.add('hidden');
+    // Réafficher les contrôles du carnet
+    showNotebookControls();
 }
 
 // Demander à Patrick pour le talkie-walkie
@@ -217,6 +254,8 @@ function returnToChoice() {
     // Réafficher le carnet
     document.getElementById('notebookBtn').classList.remove('hidden');
     document.getElementById('pointingHand').classList.remove('hidden');
+    // Recacher les contrôles du carnet
+    hideNotebookControls();
 }
 
 // Chercher avec la police
@@ -252,11 +291,8 @@ function jumpToCameras() {
     const allPages = document.querySelectorAll('.page');
     allPages.forEach(page => page.classList.add('hidden'));
     
-    // Afficher la page de choix des personnes à interroger
-    document.getElementById('page11').classList.remove('hidden');
-    // Afficher le carnet et la main
-    document.getElementById('notebookBtn').classList.remove('hidden');
-    document.getElementById('pointingHand').classList.remove('hidden');
+    // Afficher la page du rendez-vous avec Wilms
+    document.getElementById('page-wilms-meeting').classList.remove('hidden');
 }
 
 // Aller voir les travailleurs de la banque
@@ -266,6 +302,8 @@ function goToWorkers() {
     // Cacher le carnet
     document.getElementById('notebookBtn').classList.add('hidden');
     document.getElementById('pointingHand').classList.add('hidden');
+    // Réafficher les contrôles du carnet
+    showNotebookControls();
 }
 
 // Revenir au choix depuis la page des travailleurs
@@ -444,5 +482,157 @@ function startClockCountdown() {
 
 // Après la sieste
 function afterNap() {
-    alert('Suite à développer...');
+    document.getElementById('page-nap').classList.add('hidden');
+    document.getElementById('page-wilms-meeting').classList.remove('hidden');
+}
+
+// Demander à Wilms "Comment ça ?"
+function askWilmsWhat() {
+    document.getElementById('wilms-revelation').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Confronter Wilms
+function confrontWilms() {
+    document.getElementById('wilms-confirmation').classList.remove('hidden');
+    event.target.style.display = 'none';
+}
+
+// Après la révélation de Wilms
+function afterWilmsRevelation() {
+    document.getElementById('page-wilms-meeting').classList.add('hidden');
+    document.getElementById('page-attack').classList.remove('hidden');
+}
+
+// Se réveiller dehors
+function wakeUpOutside() {
+    document.getElementById('page-attack').classList.add('hidden');
+    document.getElementById('page-escape').classList.remove('hidden');
+}
+
+// Fuir
+function runAway() {
+    document.getElementById('page-escape').classList.add('hidden');
+    document.getElementById('page-after-escape').classList.remove('hidden');
+}
+
+// Ouvrir le carnet après la fuite
+function openNotebookAfterEscape() {
+    // Afficher le carnet
+    document.getElementById('notebookBtn').classList.remove('hidden');
+    document.getElementById('notebookPanel').classList.remove('hidden');
+    
+    // Cacher la main pointant (si elle était visible)
+    document.getElementById('pointingHand').classList.add('hidden');
+    
+    // Activer l'effet de floutage avec le message
+    setTimeout(() => {
+        showBlurMessage();
+    }, 500);
+}
+
+// Afficher le message avec effet de flou
+function showBlurMessage() {
+    const blurOverlay = document.getElementById('blurOverlay');
+    const messageText = document.getElementById('blurMessageText');
+    
+    if (blurOverlay && messageText) {
+        blurOverlay.classList.remove('hidden');
+        
+        // Afficher le premier message
+        messageText.innerHTML = '<p style="font-size: 1.5em;">📝 Effacez les anciennes notes</p><p style="font-size: 1.2em; margin-top: 20px;">Cliquez sur 🗑️ pour supprimer chaque note</p>';
+        messageText.style.opacity = '1';
+        messageText.style.display = 'block';
+        
+        // Faire disparaître le message après 3 secondes (mais garder le flou)
+        setTimeout(() => {
+            messageText.style.opacity = '0';
+            
+            // Après le fade out, cacher le message mais garder l'overlay
+            setTimeout(() => {
+                messageText.style.display = 'none';
+            }, 500);
+        }, 3000);
+        
+        // Démarrer la surveillance des notes
+        checkNotesDeleted();
+    }
+}
+
+// Vérifier si toutes les notes ont été supprimées
+function checkNotesDeleted() {
+    const messageText = document.getElementById('blurMessageText');
+    let allDeleted = false;
+    
+    const interval = setInterval(() => {
+        const remainingNotes = document.querySelectorAll('.notebook-content .note-item:not(#note-wilms)');
+        
+        if (remainingNotes.length === 0 && !allDeleted) {
+            // Toutes les notes sont supprimées pour la première fois
+            allDeleted = true;
+            clearInterval(interval);
+            
+            if (messageText) {
+                // Afficher le message de succès
+                messageText.style.display = 'block';
+                messageText.style.opacity = '1';
+                messageText.innerHTML = '<p style="font-size: 1.5em; color: #4CAF50;">✓ Parfait !</p><p style="font-size: 1.3em; margin-top: 20px;">Appuyez sur <strong>+</strong> pour ajouter la note importante</p>';
+                
+                // Faire disparaître après 3 secondes
+                setTimeout(() => {
+                    messageText.style.opacity = '0';
+                    setTimeout(() => {
+                        messageText.style.display = 'none';
+                    }, 500);
+                }, 3000);
+            }
+        }
+    }, 100);
+}
+
+// Supprimer une note du carnet
+function deleteNote(noteId) {
+    const note = document.getElementById(noteId);
+    if (note) {
+        note.style.animation = 'fadeOut 0.3s ease-out';
+        setTimeout(() => {
+            note.remove();
+        }, 300);
+    }
+}
+
+// Ajouter la note sur Wilms directement
+function addWilmsNote() {
+    // Vérifier si la note n'existe pas déjà
+    if (document.getElementById('note-wilms')) {
+        return; // Ne rien faire si la note existe déjà
+    }
+    
+    // Créer l'élément de note
+    const noteItem = document.createElement('div');
+    noteItem.className = 'note-item';
+    noteItem.id = 'note-wilms';
+    noteItem.innerHTML = `
+        <div class="note-icon">🚨</div>
+        <p><strong>Wilms est le voleur !</strong> - Il a avoué avoir volé la banque depuis le début.</p>
+    `;
+    noteItem.style.borderLeft = '4px solid #f44336';
+    
+    // Ajouter la note au début du carnet
+    const notebookContent = document.querySelector('.notebook-content');
+    const firstNote = notebookContent.querySelector('.note-item');
+    if (firstNote) {
+        notebookContent.insertBefore(noteItem, firstNote);
+    } else {
+        notebookContent.appendChild(noteItem);
+    }
+    
+    // Animation d'entrée
+    noteItem.style.animation = 'slideInNote 0.5s ease-out';
+    
+    // Masquer le message de flou
+    const blurOverlay = document.getElementById('blurOverlay');
+    if (blurOverlay) {
+        blurOverlay.classList.add('hidden');
+    }
 }

@@ -631,6 +631,98 @@
                 <button class="btn" onclick="afterNap()">Continuer</button>
             </div>
         </div>
+
+        <div class="page hidden" id="page-wilms-meeting">
+            <h2>👨‍💻 Rendez-vous avec Wilms</h2>
+            <div class="story-box">
+                <p><strong>20h00 - Bureau de Wilms</strong></p>
+                <p>Vous arrivez au bureau de l'informaticien. Les lumières sont tamisées et Wilms vous attend...</p>
+            </div>
+            <div class="character">
+                <div class="character-icon">👨‍💻</div>
+                <div class="dialogue-box">
+                    <p><strong>Wilms :</strong></p>
+                    <p>"Tu n'aurais jamais dû venir..."</p>
+                </div>
+            </div>
+            <button class="btn" onclick="askWilmsWhat()">Comment ça ?</button>
+            
+            <div id="wilms-revelation" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👨‍💻</div>
+                    <div class="dialogue-box">
+                        <p><strong>Wilms :</strong></p>
+                        <p>"C'était moi depuis le départ qui a volé la banque..."</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="confrontWilms()">Donc tout ce que tu as dit est faux ?</button>
+                
+                <div id="wilms-confirmation" class="hidden" style="margin-top: 30px;">
+                    <div class="character">
+                        <div class="character-icon">👨‍💻</div>
+                        <div class="dialogue-box">
+                            <p><strong>Wilms :</strong></p>
+                            <p>"Bien sûr..."</p>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="afterWilmsRevelation()">Continuer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page hidden" id="page-attack">
+            <h2>💥 Attaque !</h2>
+            <div class="story-box" style="background: #ffebee; border-left-color: #f44336;">
+                <p><strong>Soudain...</strong></p>
+                <p>Wilms se lève brusquement et attrape une pierre lourde !</p>
+            </div>
+            <div class="character">
+                <div class="character-icon">👨‍💻</div>
+                <div class="dialogue-box" style="border-left-color: #f44336;">
+                    <p><strong>Wilms :</strong></p>
+                    <p>"Désolé, mais je ne peux pas te laisser partir..."</p>
+                </div>
+            </div>
+            <div class="story-box" style="background: #000; color: #fff; margin-top: 30px;">
+                <p style="font-size: 2em; text-align: center;">💥 BOUM !</p>
+                <p style="text-align: center; margin-top: 20px;">Tout devient noir...</p>
+            </div>
+            <button class="btn" onclick="wakeUpOutside()">...</button>
+        </div>
+
+        <div class="page hidden" id="page-escape">
+            <h2>🏃 Fuite !</h2>
+            <div class="story-box">
+                <p><strong>Quelques minutes plus tard...</strong></p>
+                <p>Vous vous réveillez dehors, devant le bâtiment. Votre tête vous fait mal...</p>
+            </div>
+            <div class="character">
+                <div class="character-icon">🕵️</div>
+                <div class="dialogue-box">
+                    <p><strong>Vous (pensant) :</strong></p>
+                    <p>"Il m'a assommé et jeté dehors... Je dois fuir avant qu'il ne revienne !"</p>
+                    <p>"Je dois alerter la police immédiatement !"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="runAway()">Fuir !</button>
+        </div>
+
+        <div class="page hidden" id="page-after-escape">
+            <h2>📝 Prendre des notes</h2>
+            <div class="story-box">
+                <p><strong>Quelques rues plus loin...</strong></p>
+                <p>Vous vous arrêtez dans une ruelle sombre pour reprendre votre souffle...</p>
+            </div>
+            <div class="character">
+                <div class="character-icon">🕵️</div>
+                <div class="dialogue-box">
+                    <p><strong>Vous (pensant) :</strong></p>
+                    <p>"Il faut que je note tout ça dans mon carnet avant d'oublier !"</p>
+                    <p>"Wilms est le coupable... Je dois compiler toutes les preuves !"</p>
+                </div>
+            </div>
+            <button class="btn" onclick="openNotebookAfterEscape()">Ouvrir le carnet</button>
+        </div>
     </div>
 
     <!-- Carnet de notes flottant -->
@@ -644,24 +736,31 @@
     <div class="notebook-panel hidden" id="notebookPanel">
         <div class="notebook-header">
             <h3>📓 Carnet de notes</h3>
-            <button class="close-btn" onclick="toggleNotebook()">×</button>
+            <div style="display: flex; gap: 10px;">
+                <button class="add-note-btn" onclick="addWilmsNote()">➕</button>
+                <button class="close-btn" onclick="toggleNotebook()">×</button>
+            </div>
         </div>
         <div class="notebook-content">
-            <div class="note-item">
+            <div class="note-item" id="note1">
                 <div class="note-icon">⚠️</div>
                 <p><strong>Patrick est suspé</strong> - Il m'a pas répondu.</p>
+                <button class="delete-note-btn" onclick="deleteNote('note1')">🗑️</button>
             </div>
-            <div class="note-item">
+            <div class="note-item" id="note2">
                 <div class="note-icon">🏗️</div>
                 <p><strong>Tom dit qu'il y avait des travaux.</strong> Un cambriolage en plein travaux... Bizarre !</p>
+                <button class="delete-note-btn" onclick="deleteNote('note2')">🗑️</button>
             </div>
-            <div class="note-item">
+            <div class="note-item" id="note3">
                 <div class="note-icon">🔍</div>
                 <p>Peut-être voir <strong>qui travaille dans les travaux</strong>.</p>
+                <button class="delete-note-btn" onclick="deleteNote('note3')">🗑️</button>
             </div>
-            <div class="note-item">
+            <div class="note-item" id="note4">
                 <div class="note-icon">👥</div>
                 <p>Il y a dû avoir des <strong>complices</strong>.</p>
+                <button class="delete-note-btn" onclick="deleteNote('note4')">🗑️</button>
             </div>
         </div>
     </div>
@@ -669,6 +768,14 @@
     <!-- Bouton de raccourci temporaire (dev) -->
     <div class="dev-shortcut" onclick="jumpToCameras()">
         ⚡ RACCOURCI CAMÉRAS
+    </div>
+
+    <!-- Overlay de floutage avec message -->
+    <div class="blur-overlay hidden" id="blurOverlay">
+        <div class="blur-message" id="blurMessageText">
+            <p style="font-size: 1.5em;">📝 Effacez les anciennes notes</p>
+            <p style="font-size: 1.2em; margin-top: 20px;">Cliquez sur 🗑️ pour supprimer chaque note</p>
+        </div>
     </div>
 
     <script src="script.js"></script>
