@@ -282,17 +282,65 @@ function toggleNotebook() {
     // Si on ferme le carnet, afficher le bouton des travailleurs
     if (isClosing) {
         document.getElementById('workersBtn').classList.remove('hidden');
+        
+        // Si la note Wilms a été ajoutée, afficher le bouton "Voir le roi"
+        if (window.wilmsNoteAdded) {
+            const kingBtn = document.getElementById('kingBtn');
+            if (kingBtn) {
+                kingBtn.style.display = 'block';
+            } else {
+                createKingButton();
+            }
+        }
     }
+}
+
+// Créer le bouton "Voir le roi"
+function createKingButton() {
+    const kingBtn = document.createElement('button');
+    kingBtn.id = 'kingBtn';
+    kingBtn.className = 'btn';
+    kingBtn.style.marginTop = '20px';
+    kingBtn.textContent = '👑 Voir le roi';
+    kingBtn.type = 'button';
+    kingBtn.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = 'roi.html';
+    };
+    
+    const page = document.getElementById('page-after-escape');
+    if (page) {
+        page.appendChild(kingBtn);
+    }
+}
+
+// Dire bonjour au nouveau roi
+function greetNewKing() {
+    event.currentTarget.style.display = 'none';
+    document.getElementById('king-conversation1').classList.remove('hidden');
+}
+
+// Dire au roi que Wilms a volé
+function tellKingAboutWilms() {
+    event.currentTarget.style.display = 'none';
+    document.getElementById('king-conversation2').classList.remove('hidden');
+}
+
+// Demander comment ça
+function askHowTom() {
+    event.currentTarget.style.display = 'none';
+    document.getElementById('king-conversation3').classList.remove('hidden');
+}
+
+// Après l'explication du roi
+function afterKingExplanation() {
+    alert('Suite à développer...');
 }
 
 // Raccourci pour aller directement à la page de choix (temporaire pour le dev)
 function jumpToCameras() {
-    // Cacher toutes les pages
-    const allPages = document.querySelectorAll('.page');
-    allPages.forEach(page => page.classList.add('hidden'));
-    
-    // Afficher la page du rendez-vous avec Wilms
-    document.getElementById('page-wilms-meeting').classList.remove('hidden');
+    // Rediriger directement vers la page du roi
+    window.location.href = 'roi.html';
 }
 
 // Aller voir les travailleurs de la banque
@@ -635,4 +683,7 @@ function addWilmsNote() {
     if (blurOverlay) {
         blurOverlay.classList.add('hidden');
     }
+    
+    // Marquer que la note a été ajoutée
+    window.wilmsNoteAdded = true;
 }

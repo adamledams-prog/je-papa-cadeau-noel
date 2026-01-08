@@ -723,6 +723,57 @@
             </div>
             <button class="btn" onclick="openNotebookAfterEscape()">Ouvrir le carnet</button>
         </div>
+
+        <div class="page hidden" id="page-new-king">
+            <h2>👑 Le Roi</h2>
+            <div class="story-box">
+                <p><strong>Palais Royal</strong></p>
+                <p>Vous arrivez au palais pour rencontrer le roi. Il vous attend dans la salle du trône...</p>
+            </div>
+            <div class="character">
+                <div class="character-icon">👑</div>
+                <div class="dialogue-box">
+                    <p><strong>Le Roi :</strong></p>
+                    <p>"Ah, détective ! Vous voilà enfin."</p>
+                </div>
+            </div>
+            <button type="button" class="btn" onclick="greetNewKing()">Bonjour roi</button>
+            
+            <div id="king-conversation1" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Bonjour détective. Avez-vous des nouvelles de l'enquête ?"</p>
+                    </div>
+                </div>
+                <button type="button" class="btn" onclick="tellKingAboutWilms()">Wilms est celui qui a volé !</button>
+            </div>
+            
+            <div id="king-conversation2" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Super ! Excellent travail détective !"</p>
+                        <p>"On a aussi trouvé Tom, il était là pendant le vol."</p>
+                    </div>
+                </div>
+                <button type="button" class="btn" onclick="askHowTom()">Mais comment ça ?</button>
+            </div>
+            
+            <div id="king-conversation3" class="hidden" style="margin-top: 30px;">
+                <div class="character">
+                    <div class="character-icon">👑</div>
+                    <div class="dialogue-box">
+                        <p><strong>Le Roi :</strong></p>
+                        <p>"Tom avait fait exprès de ne pas être bizarre pour ne pas attirer l'attention."</p>
+                        <p>"Et ils ont payé Patrick pour vous induire en erreur !"</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="afterKingExplanation()">Continuer</button>
+            </div>
+        </div>
     </div>
 
     <!-- Carnet de notes flottant -->
